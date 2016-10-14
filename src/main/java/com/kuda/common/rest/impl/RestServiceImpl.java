@@ -33,7 +33,6 @@ public class RestServiceImpl implements RestService {
 
     @Override
     public Object get(String param){
-        //System.out.println("Sanitiezed token ----- "+sanitizeToken());
         try {
             URL url = new URL(PROJECTS_URL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -50,31 +49,16 @@ public class RestServiceImpl implements RestService {
                     (conn.getInputStream())));
             StringBuilder sb = new StringBuilder();
             String output;
-            System.out.println("Output from Server .... \n");
+            ///System.out.println("Output from Server .... \n");
             while ((output = br.readLine()) != null) {
                 sb.append(output);
-                System.out.println(output);
+                ///System.out.println(output);
             }
-
-            /*ArrayList<String> list = new ArrayList<String>();
-            //JSONObject jsonObject = new JSONObject(test);
-            JSONArray jsonArray = new JSONArray(output);
-            if (jsonArray != null) {
-                int len = jsonArray.length();
-                for (int i=0;i<len;i++){
-                    System.out.println("Json array-------: "+jsonArray.get(i).toString());
-                    list.add(jsonArray.get(i).toString());
-                }
-            }*/
 
             ObjectMapper mapper = new ObjectMapper();
             Project[] projects = mapper.readValue(sb.toString(), Project[].class);
-            for (Project project: projects){
-                System.out.println(project.getTitle());
-            }
-
             conn.disconnect();
-            //return projects;
+            return projects;
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (ProtocolException e) {

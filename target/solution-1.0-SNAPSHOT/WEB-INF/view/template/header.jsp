@@ -44,14 +44,13 @@
           <div class="navbar-collapse  collapse">
             <ul class="nav navbar-nav navbar-right scroll">
               <li <c:if test="${page == 'home'}">class="active" </c:if> > <a href="/home">Home</a></li>
-              <!--<li <c:if test="${page == 'list'}">class="active" </c:if> ><a href="/list">List</a></li>-->
-              <!--<li><a href="/list"><i class="glyphicon glyphicon-lock"></i> Logout <span class="glyphicon glyphicon-user">${msg}</span> </a></li>-->
               <li role="presentation" class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                  <span class="glyphicon glyphicon-user"> ${msg}</span> <span class="caret"></span>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-user-md"></i> ${msg}<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a href="/list"><i class="glyphicon glyphicon-lock"></i> Logout</a></li>
+                  <li><a href="signout"><i class="fa fa-lock"></i> Logout</a></li>
+                  <li><a href="signout"><i class="glyphicon glyphicon-lock"></i> Logout</a></li>
                 </ul>
               </li>
             </ul>

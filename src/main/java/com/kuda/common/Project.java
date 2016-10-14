@@ -2,9 +2,12 @@ package com.kuda.common;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by kuda on 10/14/2016.
@@ -57,7 +60,15 @@ public class Project {
     }
 
     public String getStart_date() {
-        return new SimpleDateFormat("yyyy-MMM-dd").format(new Date(start_date));
+        try {
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+            Date j = df.parse(start_date);
+            String date = new SimpleDateFormat("yyyy-MMM-dd", Locale.ENGLISH).format(j);
+            return date;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return start_date;
+        }
     }
 
     public void setStart_date(String start_date) {
@@ -65,7 +76,15 @@ public class Project {
     }
 
     public String getEnd_date() {
-        return end_date;
+        try {
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+            Date j = df.parse(end_date);
+            String date = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH).format(j);
+            return date;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return end_date;
+        }
     }
 
     public void setEnd_date(String end_date) {

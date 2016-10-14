@@ -25,7 +25,7 @@ public class HomeController {
 	@Autowired
 	private LoginDelegate loginDelegate;
 	private RestServiceImpl restService;
-	private ArrayList<Project> projects;
+	private Project[] projects;
 
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -41,7 +41,7 @@ public class HomeController {
 		model.addAttribute("msg", loginBean.getUserName());
 		model.addAttribute("page", "home");
 		restService = new RestServiceImpl(token);
-		projects = (ArrayList)restService.get("");
+		projects = (Project[])restService.get("");
 		model.addAttribute("projects", projects);
 		return "home";
 	}
@@ -52,7 +52,18 @@ public class HomeController {
 		return "login";
 	}
 
-	@RequestMapping(value = "login", method = RequestMethod.POST)
+	@RequestMapping(value = "/signout", method = RequestMethod.GET)
+	public String logout(Model model) {
+		model.addAttribute("msg", "You have logged out");
+		loggedIn = false;
+		loginBean = null;
+		token = null;
+		projects = null;
+		loginDelegate = null;
+		return "login";
+	}
+
+	@RequestMapping(value = "/signin", method = RequestMethod.POST)
 	public String submit(Model model, @ModelAttribute("loginBean") LoginBean loginBean) {
 		//System.out.println("*****************"+loginBean.getUserName()+"*********************");
 		Map response = loginDelegate.isValidUser(loginBean.getUserName(), loginBean.getPassword());

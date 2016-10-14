@@ -48,21 +48,13 @@ public class RestServiceAuthImpl implements RestServiceAuth {
         //print result
         token_ = response.toString();
         //putToken(response.toString());
-        System.out.println(response.toString());
+        //System.out.println(response.toString());
 
         return response;
     }
 
     public String getToken() {
         return token_;
-    }
-
-    private void putToken(String token) {
-        if(!token.isEmpty() && token.contains("token") && token != null) {
-            //Gson convert = new Gson();
-            //Map t = convert.fromJson(token, Map.class);
-            //this.token = t;
-        }
     }
 
 }

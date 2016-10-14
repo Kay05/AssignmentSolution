@@ -17,7 +17,8 @@
 </head>
 <body>
     <div class="wrapper">
-        <form class="form-signin" action="/login" name="submitForm" method="POST">
+        <form class="form-signin" action="/signin" name="submitForm" method="POST">
+            <c:if test="${msg!=null}"><p class="help-block alert alert-info">${msg}</p></c:if>
             <h2 class="form-signin-heading">Please login</h2>
             <input type="text" class="form-control" name="userName" placeholder="Email Address" required="" autofocus="" />
             <input type="password" class="form-control" name="password" placeholder="Password" required=""/>
