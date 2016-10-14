@@ -10,6 +10,13 @@ public class UserDaoImpl implements UserDao {
 
     private RestService restService;
 
+    public UserDaoImpl() {
+    }
+
+    public UserDaoImpl(RestService restService) {
+        this.restService = restService;
+    }
+
     public RestService getRestService() {
         return this.restService;
     }
@@ -21,6 +28,15 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean isValidUser(String username, String password) {
-        return false;
+        try {
+            StringBuffer response = restService.authenticate(username,password);
+            if(response.toString().contains("token"))
+                return true;
+            else
+                return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }
