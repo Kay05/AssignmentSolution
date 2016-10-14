@@ -7,6 +7,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.Map;
+
 /**
  * Created by kuda on 10/12/2016.
  */
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeController {
 	private boolean loggedIn = false;
 	private LoginBean loginBean = null;
+	private String token;
 	@Autowired
 	private LoginDelegate loginDelegate;
 
@@ -42,10 +46,12 @@ public class HomeController {
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public String submit(Model model, @ModelAttribute("loginBean") LoginBean loginBean) {
 		//System.out.println("*****************"+loginBean.getUserName()+"*********************");
-		boolean isValidUser = loginDelegate.isValidUser(loginBean.getUserName(), loginBean.getPassword());
+		Map response = loginDelegate.isValidUser(loginBean.getUserName(), loginBean.getPassword());
+		boolean isValidUser = (boolean)response.get("success");
 		if(isValidUser) {
 			loggedIn = true;
 			this.loginBean = loginBean;
+			token = response.get("token").toString();
 			return getHome(model);
 		}else{
 			model.addAttribute("error", "Invalid Details");

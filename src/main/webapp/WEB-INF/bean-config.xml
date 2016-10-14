@@ -14,10 +14,10 @@
        </bean>
 
        <bean name="userDao" class="com.kuda.common.dao.impl.UserDaoImpl">
-              <property name="restService" ref="rest"></property>
+              <property name="restServiceAuth" ref="rest"></property>
        </bean>
 
-       <bean id="rest" class="com.kuda.common.rest.impl.RestServiceImpl">
+       <bean id="rest" class="com.kuda.common.rest.impl.RestServiceAuthImpl">
 
        </bean>
 </beans>

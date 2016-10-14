@@ -2,6 +2,8 @@ package com.kuda.common;
 
 import com.kuda.common.service.UserService;
 
+import java.util.Map;
+
 /**
  * Created by kuda on 10/14/2016.
  */
@@ -16,7 +18,7 @@ public class LoginDelegate {
         this.userService = userService;
     }
 
-    public boolean isValidUser(String username, String password)
+    public Map isValidUser(String username, String password)
     {
         return userService.isValidUser(username, password);
     }

@@ -1,42 +1,48 @@
 package com.kuda.common.dao.impl;
 
 import com.kuda.common.dao.UserDao;
-import com.kuda.common.rest.RestService;
+import com.kuda.common.rest.RestServiceAuth;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by kuda on 10/14/2016.
  */
 public class UserDaoImpl implements UserDao {
 
-    private RestService restService;
+    private RestServiceAuth restServiceAuth;
 
     public UserDaoImpl() {
     }
 
-    public UserDaoImpl(RestService restService) {
-        this.restService = restService;
+    public UserDaoImpl(RestServiceAuth restServiceAuth) {
+        this.restServiceAuth = restServiceAuth;
     }
 
-    public RestService getRestService() {
-        return this.restService;
+    public RestServiceAuth getRestServiceAuth() {
+        return this.restServiceAuth;
     }
 
-    public void setRestService(RestService restService) {
-        this.restService = restService;
+    public void setRestServiceAuth(RestServiceAuth restServiceAuth) {
+        this.restServiceAuth = restServiceAuth;
     }
 
 
     @Override
-    public boolean isValidUser(String username, String password) {
+    public Map isValidUser(String username, String password) {
         try {
-            StringBuffer response = restService.authenticate(username,password);
-            if(response.toString().contains("token"))
-                return true;
-            else
-                return false;
+            StringBuffer response = restServiceAuth.authenticate(username,password);
+            if(response.toString().contains("token")) {
+                Map result = new HashMap<>();
+                result.put("token", response);
+                result.put("success", true);
+                return result;
+            }else
+                return new HashMap<String, Boolean>(){{put("success", false);}};
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return new HashMap<String, Boolean>(){{put("success", false);}};
         }
     }
 }

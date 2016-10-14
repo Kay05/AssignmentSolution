@@ -3,6 +3,8 @@ package com.kuda.common.service.impl;
 import com.kuda.common.dao.UserDao;
 import com.kuda.common.service.UserService;
 
+import java.util.Map;
+
 /**
  * Created by kuda on 10/14/2016.
  */
@@ -20,7 +22,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public boolean isValidUser(String username, String password) {
+    public Map isValidUser(String username, String password) {
         return userDao.isValidUser(username, password);
     }
 }
