@@ -18,5 +18,6 @@
        </bean>
 
        <bean id="rest" class="com.kuda.common.rest.impl.RestServiceImpl">
+
        </bean>
 </beans>
