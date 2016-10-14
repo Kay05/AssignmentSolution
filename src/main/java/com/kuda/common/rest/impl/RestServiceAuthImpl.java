@@ -1,6 +1,5 @@
 package com.kuda.common.rest.impl;
 
-import com.google.gson.Gson;
 import com.kuda.common.rest.RestServiceAuth;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -14,9 +13,7 @@ import java.util.Map;
  */
 public class RestServiceAuthImpl implements RestServiceAuth {
     private static final String AUTH_URL = "http://userservice.staging.tangentmicroservices.com:80/api-token-auth/";
-    private static final String USER_URL = "http://userservice.staging.tangentmicroservices.com/api-explorer/";
-    private static final String SERVICE_URL = "http://projectservice.staging.tangentmicroservices.com/api-explorer/";
-    private static final String PROJECTS_URL = "http://projectservice.staging.tangentmicroservices.com:80/api/v1/projects/";
+    //private static final String USER_URL = "http://userservice.staging.tangentmicroservices.com/api-explorer/";
     private Map token;
     private String token_;
 
@@ -62,9 +59,9 @@ public class RestServiceAuthImpl implements RestServiceAuth {
 
     private void putToken(String token) {
         if(!token.isEmpty() && token.contains("token") && token != null) {
-            Gson convert = new Gson();
-            Map t = convert.fromJson(token, Map.class);
-            this.token = t;
+            //Gson convert = new Gson();
+            //Map t = convert.fromJson(token, Map.class);
+            //this.token = t;
         }
     }
 

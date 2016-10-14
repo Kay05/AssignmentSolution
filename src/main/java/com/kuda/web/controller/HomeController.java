@@ -1,6 +1,9 @@
 package com.kuda.web.controller;
 
 import com.kuda.common.LoginDelegate;
+import com.kuda.common.Project;
+import com.kuda.common.rest.RestService;
+import com.kuda.common.rest.impl.RestServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -20,6 +24,8 @@ public class HomeController {
 	private String token;
 	@Autowired
 	private LoginDelegate loginDelegate;
+	private RestServiceImpl restService;
+	private ArrayList<Project> projects;
 
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -34,6 +40,9 @@ public class HomeController {
 	public String getHome(Model model) {
 		model.addAttribute("msg", loginBean.getUserName());
 		model.addAttribute("page", "home");
+		restService = new RestServiceImpl(token);
+		projects = (ArrayList)restService.get("");
+		model.addAttribute("projects", projects);
 		return "home";
 	}
 
