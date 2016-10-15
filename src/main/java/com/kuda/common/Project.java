@@ -60,10 +60,12 @@ public class Project {
     }
 
     public String getStart_date() {
+        if(start_date == null)
+            return " ";
         try {
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
             Date j = df.parse(start_date);
-            String date = new SimpleDateFormat("yyyy-MMM-dd", Locale.ENGLISH).format(j);
+            String date = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH).format(j);
             return date;
         } catch (ParseException e) {
             e.printStackTrace();
@@ -76,6 +78,8 @@ public class Project {
     }
 
     public String getEnd_date() {
+        if(end_date == null)
+            return " ";
         try {
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
             Date j = df.parse(end_date);

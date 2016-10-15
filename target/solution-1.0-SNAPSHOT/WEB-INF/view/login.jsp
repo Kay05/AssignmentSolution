@@ -16,23 +16,20 @@
 
 </head>
 <body>
-    <div class="wrapper">
-        <form class="form-signin" action="/signin" name="submitForm" method="POST">
-            <c:if test="${msg!=null}"><p class="help-block alert alert-info">${msg}</p></c:if>
-            <h2 class="form-signin-heading">Please login</h2>
-            <input type="text" class="form-control" name="userName" placeholder="Email Address" required="" autofocus="" />
-            <input type="password" class="form-control" name="password" placeholder="Password" required=""/>
-            <label class="checkbox">
-                <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me
-            </label>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-            <c:if test="${error!=null}"><p class="help-block alert alert-danger">${error}</p></c:if>
-        </form>
-    </div>
-    <!--<div id="msg"></div>-->
+<div class="wrapper">
+    <form class="form-signin" action="signin" name="submitForm" method="POST">
+        <c:if test="${msg!=null}"><p class="help-block alert alert-info">${msg}</p></c:if>
+        <h2 class="form-signin-heading">Please login</h2>
+        <input type="text" class="form-control" name="userName" placeholder="Email Address" required="" autofocus="" />
+        <input type="password" class="form-control" name="password" placeholder="Password" required=""/>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+        <c:if test="${error!=null}"><p class="help-block alert alert-danger">${error}</p></c:if>
+    </form>
+</div>
+<!--<div id="msg"></div>-->
 
-    <script src="<c:url value="/resources/js/jquery-1.11.1.min.js" />"></script>
-    <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
-    <script src="<c:url value="/resources/js/main.js" />"></script>
+<script src="<c:url value="/resources/js/jquery-1.11.1.min.js" />"></script>
+<script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
+<script src="<c:url value="/resources/js/main.js" />"></script>
 </body>
 </html>

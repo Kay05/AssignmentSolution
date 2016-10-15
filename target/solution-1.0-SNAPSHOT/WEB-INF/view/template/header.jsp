@@ -26,7 +26,7 @@
         <div class="container">
           <div class="navbar-header">
             <!-- Logo Starts -->
-            <a class="navbar-brand" href="home">Tangent Assignment</a>
+            <a class="navbar-brand" href="/home">Tangent Assignment</a>
             <!-- #Logo Ends -->
 
 
@@ -49,7 +49,7 @@
                   <i class="fa fa-user-md"></i> ${msg}<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a href="signout"><i class="fa fa-lock"></i> Logout</a></li>
+                  <li><a href="/signout"><i class="fa fa-lock"></i> Logout</a></li>
                 </ul>
               </li>
             </ul>

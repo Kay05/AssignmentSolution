@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -42,12 +43,29 @@ public class HomeController {
 	public ModelAndView getHome() {
 		ModelAndView model;
 		if(loggedIn){
-			model = new ModelAndView("home");
+			model = new ModelAndView("/home");
 			model.addObject("msg", loginBean.getUserName());
 			model.addObject("page", "home");
 			restService = new RestServiceImpl(token);
+			//if(projects == null || projects.length == 0)
 			projects = (Project[])restService.get("");
 			model.addObject("projects", projects);
+			return model;
+		}else {
+			model = new ModelAndView("login");
+			model.addObject("msg", "Please Enter Your Login Details");
+			return model;
+		}
+	}
+
+	@RequestMapping(value = "/detail/{value}", method = RequestMethod.GET)
+	public ModelAndView getDetail(@PathVariable int value) {
+		ModelAndView model;
+		if(loggedIn){
+			model = new ModelAndView("detail");
+			Project project = projects[value];
+			model.addObject("page", "home");
+			model.addObject("project", project);
 			return model;
 		}else {
 			model = new ModelAndView("login");
@@ -74,7 +92,7 @@ public class HomeController {
 		return model;
 	}
 
-	@RequestMapping(value = "/signin", method = RequestMethod.POST)
+	@RequestMapping(value = "signin", method = RequestMethod.POST)
 	public ModelAndView submit(@ModelAttribute("loginBean") LoginBean loginBean) {
 		System.out.println("*********inside submit****************");
 		System.out.println("loginbean == null? "+ loginBean.getUserName());

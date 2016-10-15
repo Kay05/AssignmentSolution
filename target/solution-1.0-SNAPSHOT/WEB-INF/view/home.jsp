@@ -17,16 +17,23 @@
         <div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
           <c:if test="${not empty projects}">
             <ul class="event-list">
-                <c:forEach var="project" items="${projects}">
+                <c:forEach var="project" items="${projects}" varStatus="loop">
                     <li>
                         <time datetime="2014-07-20">
-                            <span class="day">${project.start_date.split('-')[2]}</span>
-                            <span class="month">${project.start_date.split('-')[1]}</span>
-                            <span class="year">${project.start_date.split('-')[0]}</span>
+                            <c:if test="${!project.start_date.equals(' ')}">
+                                <span class="day">${project.start_date.split(' ')[0]}</span>
+                                <span class="month">${project.start_date.split(' ')[1]}</span>
+                                <span class="year">${project.start_date.split(' ')[2]}</span>
+                            </c:if>
+                            <c:if test="${project.start_date.equals(' ')}">
+                                <span class="day">0</span>
+                                <span class="month">0</span>
+                                <span class="year">0000</span>
+                            </c:if>
                             <span class="time">ALL DAY</span>
                         </time>
                         <div class="info">
-                            <h2 class="title"><a href="#">${project.title}</a></h2>
+                            <h2 class="title"><a href="/detail/${loop.index}">${project.title}</a></h2>
                             <p class="desc">
                                 <i class="fa fa-sticky-note-o"></i> Description: ${project.description}
                             </p>

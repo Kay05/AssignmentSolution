@@ -44,6 +44,8 @@ public class Task {
     }
 
     public String getDue_date() {
+        if(due_date == null)
+            return " ";
         return due_date;
     }
 
