@@ -67,7 +67,7 @@ public class RestServiceImpl implements RestService {
             e.printStackTrace();
         }
 
-        return null;
+        return new Project[0];
     }
 
     private String sanitizeToken(){
