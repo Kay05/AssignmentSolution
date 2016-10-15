@@ -27,7 +27,9 @@
                         </time>
                         <div class="info">
                             <h2 class="title"><a href="#">${project.title}</a></h2>
-                            <p class="desc"><i class="fa fa-sticky-note-o"></i> Description: ${project.description}</p>
+                            <p class="desc">
+                                <i class="fa fa-sticky-note-o"></i> Description: ${project.description}
+                            </p>
                         </div>
                     </li>
                 </c:forEach>

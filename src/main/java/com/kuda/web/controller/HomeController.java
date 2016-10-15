@@ -10,8 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -29,53 +31,73 @@ public class HomeController {
 
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
+	public ModelAndView home() {
 		if(loggedIn) {
-			return getHome(model);
+			return getHome();
 		}else
-			return login(model);
+			return login();
 	}
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String getHome(Model model) {
-		model.addAttribute("msg", loginBean.getUserName());
-		model.addAttribute("page", "home");
-		restService = new RestServiceImpl(token);
-		projects = (Project[])restService.get("");
-		model.addAttribute("projects", projects);
-		return "home";
+	public ModelAndView getHome() {
+		ModelAndView model;
+		if(loggedIn){
+			model = new ModelAndView("home");
+			model.addObject("msg", loginBean.getUserName());
+			model.addObject("page", "home");
+			restService = new RestServiceImpl(token);
+			projects = (Project[])restService.get("");
+			model.addObject("projects", projects);
+			return model;
+		}else {
+			model = new ModelAndView("login");
+			model.addObject("msg", "Please Enter Your Login Details");
+			return model;
+		}
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(Model model) {
-		model.addAttribute("msg", "Please Enter Your Login Details");
-		return "login";
+	public ModelAndView login() {
+		ModelAndView model = new ModelAndView("login");
+		model.addObject("msg", "Please Enter Your Login Details");
+		return model;
 	}
 
 	@RequestMapping(value = "/signout", method = RequestMethod.GET)
-	public String logout(Model model) {
-		model.addAttribute("msg", "You have logged out");
+	public ModelAndView logout() {
+		ModelAndView model = new ModelAndView("login");
+		model.addObject("msg", "You have logged out");
 		loggedIn = false;
 		loginBean = null;
 		token = null;
 		projects = null;
-		loginDelegate = null;
-		return "login";
+		return model;
 	}
 
 	@RequestMapping(value = "/signin", method = RequestMethod.POST)
-	public String submit(Model model, @ModelAttribute("loginBean") LoginBean loginBean) {
-		//System.out.println("*****************"+loginBean.getUserName()+"*********************");
-		Map response = loginDelegate.isValidUser(loginBean.getUserName(), loginBean.getPassword());
-		boolean isValidUser = (boolean)response.get("success");
+	public ModelAndView submit(@ModelAttribute("loginBean") LoginBean loginBean) {
+		System.out.println("*********inside submit****************");
+		System.out.println("loginbean == null? "+ loginBean.getUserName());
+		System.out.println("logindelegate == null? "+ loginDelegate.equals(null));
+		ModelAndView model = null;
+		boolean isValidUser = false;
+		Map response = new HashMap<>();
+		if(loginDelegate != null && loginBean != null && !loginBean.getUserName().equals("") && !loginBean.getPassword().equals("")) {
+			System.out.println("inside if statement -- username"+loginBean.getUserName());
+			response = loginDelegate.isValidUser(loginBean.getUserName(), loginBean.getPassword());
+			isValidUser = (boolean) response.get("success");
+		}
 		if(isValidUser) {
 			loggedIn = true;
 			this.loginBean = loginBean;
 			token = response.get("token").toString();
-			return getHome(model);
+			System.out.println("*********end submit****************");
+			return getHome();
 		}else{
-			model.addAttribute("error", "Invalid Details");
-			return "/login";
+			model = new ModelAndView("login");
+			model.addObject("error", "Invalid Details");
+			System.out.println("*********end submit****************");
+			return model;
 		}
 	}
 

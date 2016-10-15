@@ -50,7 +50,6 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li><a href="signout"><i class="fa fa-lock"></i> Logout</a></li>
-                  <li><a href="signout"><i class="glyphicon glyphicon-lock"></i> Logout</a></li>
                 </ul>
               </li>
             </ul>
