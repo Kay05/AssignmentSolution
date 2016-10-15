@@ -6,16 +6,14 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Map;
 
 /**
- * Created by kuda on 10/14/2016.
+ * Created by Kuda on 10/14/2016.
  */
 public class RestServiceAuthImpl implements RestServiceAuth {
     private static final String AUTH_URL = "http://userservice.staging.tangentmicroservices.com:80/api-token-auth/";
     //private static final String USER_URL = "http://userservice.staging.tangentmicroservices.com/api-explorer/";
-    private Map token;
-    private String token_;
+    //private String token_;
 
     @Override
     public StringBuffer authenticate(String username, String password)throws Exception{
@@ -31,8 +29,8 @@ public class RestServiceAuthImpl implements RestServiceAuth {
         wr.close();
 
         int responseCode = con.getResponseCode();
-        System.out.println("\nSending 'POST' request to URL : " + AUTH_URL);
-        System.out.println("Post parameters : " + urlParameters);
+        //System.out.println("\nSending 'POST' request to URL : " + AUTH_URL);
+        //System.out.println("Post parameters : " + urlParameters);
         System.out.println("Response Code : " + responseCode);
 
         BufferedReader in = new BufferedReader(
@@ -46,15 +44,10 @@ public class RestServiceAuthImpl implements RestServiceAuth {
         in.close();
 
         //print result
-        token_ = response.toString();
-        //putToken(response.toString());
-        //System.out.println(response.toString());
+        //token_ = response.toString();
+
 
         return response;
-    }
-
-    public String getToken() {
-        return token_;
     }
 
 }

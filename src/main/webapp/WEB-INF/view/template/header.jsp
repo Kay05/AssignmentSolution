@@ -10,7 +10,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Login Form</title>
+  <title>Assessment | ${title}</title>
   <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
   <link href="<c:url value="/resources/css/font-awesome.min.css" />" rel="stylesheet">
   <link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">
